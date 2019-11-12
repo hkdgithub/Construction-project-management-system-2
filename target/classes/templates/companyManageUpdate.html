@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>企业修改</title>
+		<style>
+			div{color: white;}
+			div{ 
+            position: absolute;   
+            top: 50%;   
+            left: 50%;   
+            -webkit-transform: translate(-50%, -50%);   
+            -moz-transform: translate(-50%, -50%);   
+            -ms-transform: translate(-50%, -50%);   
+            -o-transform: translate(-50%, -50%);   
+            transform: translate(-50%, -50%);
+   }
+		</style>	
+	</head>	
+	
+	<body background="image/背景.jpg" id="userAdd">
+		<div>
+		
+		<h3 align="center">企业修改界面</h3>
+		
+		<form action="/companyUpdate" method="get">
+		当前企业编号：<input name="qyid" type="text"  th:value="${a}"/>
+		<br />
+		请将下列内容修改为你所需要的：<br/>
+		企业名称：<input name="qymc" type="text"  th:value="${b}"/><br />
+		    <p align="center"><input type="submit" value="确认"/></p><br/>
+			</form>
+		    <p align="center"><a th:href="@{'/companyManage'}">返回企业管理界面</a></p>
+		</div>     
+	</body>
+</html>

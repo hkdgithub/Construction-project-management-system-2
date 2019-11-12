@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>用户管理</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		
+		<style>
+			#userManage{color: white;}
+			div{color: white;}
+			div{ 
+            position: absolute;   
+            top: 50%;   
+            left: 50%;   
+            -webkit-transform: translate(-50%, -50%);   
+            -moz-transform: translate(-50%, -50%);   
+            -ms-transform: translate(-50%, -50%);   
+            -o-transform: translate(-50%, -50%);   
+            transform: translate(-50%, -50%);
+   }
+		</style>
+		<script>
+		//用户查询信息提交
+		function userQuery(){
+			 $.ajax({
+	               type:'get',
+	               url: 'userQuery',
+	               data:'',
+	               //dataType:'json',
+	               contentType : "application/json;charset=UTF-8",
+	               success: function(result){  
+	            	   alert("查询信息完成");
+	               }
+	            });
+		}
+		</script>
+	</head>
+	<body background="image/背景.jpg">
+	<div> 
+	 <h3 align="center">用户管理界面</h3>    
+	       <br/>
+	       <br/>
+	           
+	      <!-- 查询 -->
+	      <form style="margin:0px;display:inline;">
+		  <input value="用户查询" type="button" onclick="userQuery()"/>
+		  </form>
+		  <!-- 添加 -->
+		  <form action="/userManageAdd" method="get" style="margin:0px;display:inline;">
+		  <input value="用户添加" type="submit"/>
+		  </form >
+	      <!-- 返回主界面 -->
+	      <form action="/returnMainWindow" method="get" style="margin:0px;display:inline;">
+		  <input value="返回主页面" type="submit"/>
+		  </form>
+		  <!-- 编辑 -->		 
+		  <br/>
+		  <br/>
+		  <!-- 显示 -->
+	      <table border="1" withd="200px" align="center">		
+			<tr>			   
+				<td width="200px">名称</td>	
+				<td width="200px">所属部门</td>
+				<td width="200px">操作1</td>
+				<td width="200px">操作2</td>		
+			</tr>		
+			<tr th:each="c:${list}">
+				<td th:text="${c.name}"></td>	
+				<td th:text="${c.dept}"></td>
+				<td align="center"><a th:href="@{/userManageUpdate(name=${c.name},dept=${c.dept})}">编辑</a></td>
+                <td align="center"><a th:href="@{/userDelete(name=${c.name})}">删除</a></td>
+            </tr>	
+					
+          </table>
+    
+    <p align="center">
+    <a th:href="@{/userQuery(start=0)}">[首页]</a>
+	<a th:href="@{/userQuery(start=${page.pageNum-1})}">[上一页]</a>
+	<a th:href="@{/userQuery(start=${page.pageNum+1})}">[下一页]</a>      
+	<a th:href="@{/userQuery(start=${page.pages})}">[尾页]</a>
+	</p>
+	    <p align="center">
+	    显示第一到最后一条，共<nobr th:text="${page.pages}"></nobr>页
+	    </p>
+     </div>
+
+	</body>
+</html>

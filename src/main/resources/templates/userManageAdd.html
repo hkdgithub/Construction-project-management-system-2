@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>用户添加</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<style>
+			div{color: white;}
+			div{ 
+            position: absolute;   
+            top: 50%;   
+            left: 50%;   
+            -webkit-transform: translate(-50%, -50%);   
+            -moz-transform: translate(-50%, -50%);   
+            -ms-transform: translate(-50%, -50%);   
+            -o-transform: translate(-50%, -50%);   
+            transform: translate(-50%, -50%);
+               }
+		</style>
+		
+		<script>
+		function submit(){
+			//取值
+		var name=document.getElementById('userName').value;
+		var pwd= document.getElementById('userPassword').value;
+		var apwd=document.getElementById('affirmPassword').value;
+		var dept=document.getElementById('dept').value;
+		var page="userAdd";
+	    var t_user={"name":name,"pwd":pwd,"dept":dept}; 
+	    var jsonData = JSON.stringify(t_user);
+		    //格式
+		var nameFormat=/^[0-9]*$/;
+		var pwdFormat=/^[0-9]*$/;
+		if(name==""||name==null||!nameFormat.test(name)){
+			alert("账号格式不正确，请重新输入");
+			}
+		else if(pwd==""||pwd==null||!pwdFormat.test(pwd)){
+			alert("密码格式不正确，请重新输入");
+		}
+		else(pwd!=apwd){
+			alert("两次输入的密码不一致，请重新输入");		
+         }
+		</script>
+		
+	</head>	
+	
+	<body background="image/背景.jpg">
+		<div>
+		<h3 align="center">用户添加界面</h3>
+		
+			<form action="userAdd">
+		用户姓名：<input id="userName"       name="name"       type="text"      placeholder="请输入用户姓名"/><br/>
+		用户密码：<input id="userPassword"   name="pwd"        type="password"  placeholder="请输入用户密码"/><br/>
+		确认密码：<input id="affirmPassword" name="affirmpwd"  type="password"  placeholder="请确认用户密码"/><br/>
+		所属部门：<input id="dept"           name="dept"       type="text"      placeholder="请输入部门"/>    <br/>    
+		      
+		    <p align="center"><input type="button" value="确认" onclick="submit()"/></p>
+		   </form>
+		   
+		    <p align="center"><a th:href="@{'/userManage'}"><input type="button" value="关闭"/></a></p>
+		</div>
+		     
+	</body>
+	
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>投标管理</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<style>
+			#userManage{color: white;}
+			div{color: white;}
+			div{ 
+            position: absolute;   
+            top: 50%;   
+            left: 50%;   
+            -webkit-transform: translate(-50%, -50%);   
+            -moz-transform: translate(-50%, -50%);   
+            -ms-transform: translate(-50%, -50%);   
+            -o-transform: translate(-50%, -50%);   
+            transform: translate(-50%, -50%);
+               }
+		</style>
+		<script>
+		function bidQuery(){
+			 $.ajax({
+	               type:'get',
+	               url: 'bidQuery',
+	               data:'',
+	               //dataType:'json',
+	               contentType : "application/json;charset=UTF-8",
+	               success: function(result){  
+	            	   alert("查询信息完成");
+	               }
+	            });
+		}
+		</script>
+	</head>
+	<body background="image/背景.jpg">
+	<div>
+	 <h3 align="center">投标管理界面</h3>                                        
+	      <!-- 投标查询 -->
+	      <form style="margin:0px;display:inline;">
+          <input type="button" value="投标查询" onclick="bidQuery()"/>
+          </form>
+		  <!-- 投标添加 -->
+		  <form action="/bidManageAdd" method="get" style="margin:0px;display:inline;">
+          <input type="submit" value="投标添加"/>
+          </form>
+	      <!-- 返回主界面 -->
+	      <form action="/returnMainWindow" method="get" style="margin:0px;display:inline;">
+		  <input value="返回主页面" type="submit"/>
+		  </form>
+		  <br/>
+		  <br/>
+		  <!-- 查询 -->
+		<table border="1" withd="200px" align="center">		
+			<tr>			   			
+                <td width="200px">编号</td>	 			   
+				<td width="200px">工程编号</td>	
+				<td width="200px">投标企业编号</td>
+				<td width="200px">预算报价</td>	
+				<td width="200px">投标报价</td>	
+				<td width="200px">定额工期</td>
+				<td width="200px">投标工期</td>				
+				<td width="200px">操作1</td>
+				<td width="200px">操作2</td>	
+			</tr>
+					
+			<tr th:each="c:${list}">
+				<td th:text="${c.reid}"></td>	
+				<td th:text="${c.prid}"></td>	
+				<td th:text="${c.qyid}"></td>
+				<td th:text="${c.ysbj}"></td>	
+				<td th:text="${c.tbbj}"></td>	
+				<td th:text="${c.degq}"></td>	
+				<td th:text="${c.tbgq}"></td>		
+				<td align="center"><a th:href="@{/bidManageUpdate(prid=${c.prid},qyid=${c.qyid},ysbj=${c.ysbj},
+				tbbj=${c.tbbj},degq=${c.degq},tbgq=${c.tbgq})}">编辑</a></td>
+                <td align="center"><a th:href="@{/bidDelete(prid=${c.prid})}">删除</a></td>				
+			</tr>			
+        </table>
+    	
+    <p align="center">
+    <a th:href="@{/bidQuery(start=0)}">[首页]</a>
+	<a th:href="@{/bidQuery(start=${page.pageNum-1})}">[上一页]</a>
+	<a th:href="@{/bidQuery(start=${page.pageNum+1})}">[下一页]</a>      
+	<a th:href="@{/bidQuery(start=${page.pages})}">[尾页]</a>
+	</p> 
+	    <p align="center">
+	    显示第一到最后一条，共<nobr th:text="${page.pages}"></nobr>页
+	    </p>
+     </div>
+	</body>
+</html>

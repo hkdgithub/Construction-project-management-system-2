@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>工程管理</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<style>
+			div{color: white;}
+			div{ 
+            position: absolute;   
+            top: 50%;   
+            left: 50%;   
+            -webkit-transform: translate(-50%, -50%);   
+            -moz-transform: translate(-50%, -50%);   
+            -ms-transform: translate(-50%, -50%);   
+            -o-transform: translate(-50%, -50%);   
+            transform: translate(-50%, -50%);
+            }
+		</style>
+		<script>
+		function projectQuery(){
+			 $.ajax({
+	               type:'get',
+	               url: 'projectQuery',
+	               data:'',
+	               //dataType:'json',
+	               contentType : "application/json;charset=UTF-8",
+	               success: function(result){  
+	            	   alert("查询信息完成");
+	               }
+	            });
+		}
+		</script>
+	</head>
+	<body background="image/背景.jpg">
+		<div>
+		  <h3 align="center">工程管理界面</h3>
+		  <br/>
+		  <br/>
+		  <!-- 工程查询 -->
+		  <form style="margin:0px;display:inline;">
+          <input type="button" value="工程查询" onclick="projectQuery()"/>
+          </form>
+          <!-- 工程添加 -->
+		  <form action="/projectManageAdd" method="get" style="margin:0px;display:inline;">
+          <input type="submit" value="工程添加"/>
+          </form>
+		  <!-- 返回主窗口 -->
+	       <form action="/returnMainWindow" method="get" style="margin:0px;display:inline;">
+		  <input value="返回主页面" type="submit"/>
+		  </form>
+		  <br/>
+		  <br/>
+		<!-- 显示 -->
+		<table border="1" withd="200px" align="center">		
+			<tr>			   
+				<td width="150px">工程编号</td>	
+				<td width="150px">工程名称</td>
+				<td width="150px">报建申请单位</td>	
+				<td width="150px">所有制性质</td>	
+				<td width="150px">建设单位电话</td>
+				<td width="150px">工程状态</td>
+				<td width="150px">操作1</td>
+				<td width="150px">操作2</td>				
+			</tr>		
+			<tr th:each="c:${list}">
+				<td th:text="${c.prid}"></td>	
+				<td th:text="${c.prmc}"></td>
+				<td th:text="${c.sqdw}"></td>	
+				<td th:text="${c.ssxz}"></td>	
+				<td th:text="${c.phone}"></td>	
+				<td th:text="${c.przt}"></td>
+				<td align="center"><a th:href="@{/projectManageUpdate(prid=${c.prid},prmc=${c.prmc},
+				sqdw=${c.sqdw},ssxz=${c.ssxz},phone=${c.phone},przt=${c.przt})}">编辑</a></td>
+                <td align="center"><a th:href="@{/projectDelete(prid=${c.prid})}">删除</a></td>		
+			</tr>			
+</table>
+    
+    <p align="center">
+    <a th:href="@{/projectQuery(start=0)}">[首页]</a>
+	<a th:href="@{/projectQuery(start=${page.pageNum-1})}">[上一页]</a>
+	<a th:href="@{/projectQuery(start=${page.pageNum+1})}">[下一页]</a>      
+	<a th:href="@{/projectQuery(start=${page.pages})}">[尾页]</a>
+	</p> 
+	    <p align="center">
+	    显示第一到最后一条，共<nobr th:text="${page.pages}"></nobr>页
+	    </p>
+	    </div>
+	</body>
+		
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>登录页面</title>
+　　<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style>
+div{color: white;}
+div{ 
+            position: absolute;   
+            top: 50%;   
+            left: 50%;   
+            -webkit-transform: translate(-50%, -50%);   
+            -moz-transform: translate(-50%, -50%);   
+            -ms-transform: translate(-50%, -50%);   
+            -o-transform: translate(-50%, -50%);   
+            transform: translate(-50%, -50%);
+   }
+</style>
+
+
+</head>
+<body background="image/背景.jpg">
+<div>
+  <h3  align="center">建设工程监管信息系统</h3>
+  <br/>
+     <form action="login">
+     <table border="1" >
+     <tr>
+     <td width="100px">用户名：</td>
+     <td width="150px"><input id="name" name="name"  type="text" placeholder="请输入用户名"/></td>
+     </tr>
+     <tr>
+     <td width="100px">密码：</td>
+     <td width="150px"><input id="pwd" name="pwd" type="password" placeholder="请输入密码"/></td>
+     </tr>
+     </table>
+     <p align="center"><input type="submit" value="登录" onclick="test()"/></p>
+     <p align="center"><input type="button" th:value="${error}"/></p>
+     </form>
+     
+         <p align="center">如果没有账号点击该处<a th:href="@{'/register'}">注册</a></p>
+<script>
+function test(){
+	    //取值
+        var name=document.getElementById('name').value; 
+        var pwd =document.getElementById('pwd').value; 
+        var t_user={"name":name,"pwd":pwd}; 
+        var jsonData = JSON.stringify(t_user);
+        var page="login"; 
+        //格式
+        var nameFormat=/^[0-9]*$/;
+    	var pwdFormat=/^[0-9]*$/;
+    	//判断
+    	if(name==null||name==""||!nameFormat.test(name)){
+    		alert("用户名不为空或账号格式错误");
+    	}
+    	else(pwd==null||pwd==""||!pwdFormat.test(pwd)){
+    		alert("密码不为空或密码格式错误！密码的格式:字母、数字或特殊字符组成，必须包含列出特殊字符(!@#$%*)，且不少于 6 个字符长");
+    	}
+    	/*
+    	else{
+         $.ajax({
+               type:'put',
+               url: page,
+               data:jsonData,
+               //dataType:'json',
+               contentType : "application/json;charset=UTF-8",
+               success: function(result){
+            	   alert("登陆成功");
+               }
+              
+            });
+    	   }*/
+         }
+</script>
+</div>
+</body>
+
+</html>

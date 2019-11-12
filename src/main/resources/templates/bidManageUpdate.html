@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>投标修改</title>
+		<style>
+			#userManage{color: white;}
+			div{color: white;}
+			div{ 
+            position: absolute;   
+            top: 50%;   
+            left: 50%;   
+            -webkit-transform: translate(-50%, -50%);   
+            -moz-transform: translate(-50%, -50%);   
+            -ms-transform: translate(-50%, -50%);   
+            -o-transform: translate(-50%, -50%);   
+            transform: translate(-50%, -50%);
+   }
+		</style>
+	</head>
+	<body background="image/背景.jpg">
+	<div> 
+	<h3 align="center">投标修改界面</h3>
+	<br/>
+	   
+	  <form action="/bidUpdate">                                    
+	      当前工程编号：<input name="prid" type="text" th:value="${a}"/><br/>	
+	            
+	       请将下列内容修改为你所需要的：：<br/>
+	        企业编号:      <input name="qyid"     type="text"  th:value="${b}" /><br/>
+	        预算报价(万元):<input name="ysbj"     type="text"  th:value="${c}"/><br/>
+		投标报价(万元):<input name="tbbj"     type="text"   th:value="${d}"/><br/>
+		    定期工额(天):<input name="degq"     type="text"  th:value="${e}"/><br/>
+		    投标工期(天):<input name="tbgq"     type="text"  th:value="${f}"/><br/>    
+	       <p align="center"> 
+	      <input value="确认" type="submit"/> 
+	       </p>
+	  </form>
+      <br/>
+       
+	    <p align="center">
+		<a th:href="@{'/bidManage'}">返回投标管理界面</a>
+		</p>
+     </div>
+	</body>
+</html>

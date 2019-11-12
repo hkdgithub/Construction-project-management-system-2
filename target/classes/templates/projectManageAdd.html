@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>工程添加</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<style>
+			div{color: white;}
+			div{ 
+            position: absolute;   
+            top: 50%;   
+            left: 50%;   
+            -webkit-transform: translate(-50%, -50%);   
+            -moz-transform: translate(-50%, -50%);   
+            -ms-transform: translate(-50%, -50%);   
+            -o-transform: translate(-50%, -50%);   
+            transform: translate(-50%, -50%);
+                }
+		</style>	
+		<script>
+		function projectAdd(){
+			    //取值  
+		        var prid=document.getElementById('projectId').value; 
+		        var prmc=document.getElementById('projectName').value; 
+		        var sqdw=document.getElementById('applicantUnit').value; 
+		        var ssxz=document.getElementById('natureOfOwnership').value; 
+		        var phone=document.getElementById('unitPhone').value; 
+		        var przt=document.getElementById('projectState').value; 
+		        var t_proj_info={"prid":prid,"prmc":prmc,"sqdw":sqdw,"ssxz":ssxz,"phone":phone,"przt":przt}; 
+		        var jsonData = JSON.stringify(t_proj_info);
+		        var page="projectAdd"; 
+		   alert("hello");
+		         $.ajax({
+		               type:'get',
+		               url: page,
+		               data:jsonData,
+		               //dataType:'json',
+		               contentType : "application/json;charset=UTF-8",
+		               success: function(result){
+		            	   alert("添加成功");
+		               }     
+		            });
+		         alert("hello1");
+		         }
+		</script>
+	</head>
+	<body background="image/背景.jpg">
+		<div align="center">
+		
+		<h3 align="center">工程添加界面</h3>
+		<br/>
+		<form action="projectAdd">
+		 工程编号：       <input id="projectId"          name="prid"     type="text"/><br/>
+		 工程名称：       <input id="projectName"        name="prmc"     type="text"/><br/>
+	        报建申请单位：<input id="applicantUnit"      name="sqdw"     type="text"/><br/>
+	        所有制性质：   <input id="natureOfOwnership"   name="ssxz"    type="text"/><br/>
+	        建设单位电话：<input id="unitPhone"          name="phone"    type="text"/><br/>    
+	        工程状态：       <input id="projectState"       name="przt"     type="text"/><br/>
+	     <input value="确定" type="submit"/>  
+		</form>
+		
+		<p align="center">
+		<a th:href="@{'/projectManage'}">返回工程管理界面</a>
+		</p>
+		</div>
+	</body>
+</html>
